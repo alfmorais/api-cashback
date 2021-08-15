@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     # projects define by developer
     'rest_framework',
     'api',
+    'erp',
+    'cashback',
 ]
 
 MIDDLEWARE = [

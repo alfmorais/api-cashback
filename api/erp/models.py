@@ -18,14 +18,15 @@ class Products(models.Model):
     This class are applied in Products 
     """
     DISCOUNT_CHOICES = [
-        ('A'),
-        ('B'),
-        ('C'),
+        ('A', 'discount_10%'),
+        ('B', 'discount_30%'),
+        ('C', 'discount_50%'),
     ]
     purchase_detail = models.ForeignKey(to=PurchaseDetail,
                                         null=True,
                                         blank=True,
                                         on_delete=models.PROTECT)
-    discount = models.CharField(choices=DISCOUNT_CHOICES)
+    discount = models.CharField(choices=DISCOUNT_CHOICES,
+                                max_length=255)
     product_value = models.FloatField()
     product_quantity = models.PositiveIntegerField()

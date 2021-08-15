@@ -24,5 +24,5 @@ urlpatterns = [
     # url standard from Django Rest Framework
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     # url from ERP API
-    path('', include()),
+    path('', include(route.urls)),
 ]
