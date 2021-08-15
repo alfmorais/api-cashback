@@ -5,11 +5,11 @@ from .models import PurchaseDetail, Products
 
 
 # define viewsets for classes created on serializers.py
-class PurchaseDetailSet(viewsets.ModelViewSet):
+class PurchaseDetailViewSet(viewsets.ModelViewSet):
     serializer_class = PurchaseDetailSerializer
     queryset = PurchaseDetail.objects.all()
 
 
-class ProductsSet(viewsets.ModelViewSet):
+class ProductsViewSet(viewsets.ModelViewSet):
     serializer_class = ProductsSerializer
     queryset = Products.objects.all()
