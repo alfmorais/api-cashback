@@ -2,7 +2,7 @@
 
 ## Introdução
 
-<p>O projeto de desenvolvimento da API (Application Programming Interface) tem como objetivo, receber dados de um sistema ERP varejista e calcular o valor de cashback para o cliente de acordo com a regra de negócio. Para mais detalhes do projeto, consulte a [proposta técnica](files\readme.md).</p>
+<p>O projeto de desenvolvimento da API (Application Programming Interface) tem como objetivo, receber dados de um sistema ERP varejista e calcular o valor de cashback para o cliente de acordo com a regra de negócio. Para mais detalhes do projeto, consulte a [proposta técnica](files/readme.md).</p>
 
 ## Stacks Utilizadas:
 
@@ -17,7 +17,7 @@
 
 ### Criar um Ambiente Virtual
 
-<p>Os seguintes passos descreve como criar um ambiente virtual no sistema operacional Windowns. Para informações de MacOS e Unix, porfavor consulte a [documentação](https://docs.python.org/pt-br/3/library/venv.html).</p>
+<p>Os seguintes passos descreve como criar um ambiente virtual no sistema operacional Windowns. Para informações de MacOS e Unix, porfavor consulte a [Documentação](https://docs.python.org/pt-br/3/library/venv.html).</p>
 
 ~~~cmd
 mkdir API-CASHBACK
@@ -36,6 +36,8 @@ api-cashback/Scripts/Activate
 <p>Deve aparecer a palavra (api-cashback) nas cor verde, indicando que o ambiente virtual está ativado.</p>
 
 ![Text Alt](files/venv.png)
+
+### Instalação dos Pacotes e Bibliotecas:
 
 ## Referências Bibliográficas
 

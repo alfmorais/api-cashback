@@ -2,7 +2,7 @@ from django.db import models
 
 
 # Create your models here.
-# Models applied in erp api
+# Models applied in ERP API
 class PurchaseDetail(models.Model):
     """
     This class are applied Purchase Detail
