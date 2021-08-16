@@ -87,3 +87,24 @@ def cachback_calculate(discount, product_value, product_quantity):
     elif discount.upper() == 'C':
         cashback_amount = round((total_purchase - (total_purchase * 0.5)), 2)
         return cashback_amount
+
+
+# The function below has the main purpose calculate and check,
+# correct values receveid from ERP API -> POST METHOD
+def calculate_check(product_quantity, product_value, total):
+    """
+    This function will check value receveid from ERP API - POST METHOD
+    Args:
+        product_quantity (int): value receveid from ERP API
+        product_value (float): unit price of product
+        total (float): quantity of product
+    """
+    total_purchase = round(product_value * product_quantity)
+    total = round(total, 2)
+
+    if total_purchase == total:
+        message = 'The value was validated!'
+        return message
+    else:
+        message = 'The value is invalid. Different from ERP!'
+        return message
