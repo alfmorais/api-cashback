@@ -64,4 +64,26 @@ def check_cpf_isvalid(customer_document):
         return False
 
 
-# The function below has the main purpose check if date is valid
+# The function below has the main purpose calculate cashback
+def cachback_calculate(discount, product_value, product_quantity):
+    """
+    This function will calculate cashback amount to return to customers.
+    Args:
+        discount (str): value of discount cashback
+        product_value (float): unit price of product
+        product_quantity (int): quantity of product
+    """
+
+    # will calculate a total amount
+    total_purchase = round(product_value * product_quantity)
+
+    # will check range of cashback
+    if discount.upper() == 'A':
+        cashback_amount = round((total_purchase - (total_purchase * 0.1)), 2)
+        return cashback_amount
+    elif discount.upper() == 'B':
+        cashback_amount = round((total_purchase - (total_purchase * 0.3)), 2)
+        return cashback_amount
+    elif discount.upper() == 'C':
+        cashback_amount = round((total_purchase - (total_purchase * 0.5)), 2)
+        return cashback_amount
