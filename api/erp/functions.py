@@ -1,13 +1,10 @@
 # The functions below has the main purpose check the customers documents
 # The customers documents are based on CPF
-
-
 def check_cpf_digits(customer_document):
     """
     This function will check length caracter qty of customer document number.
     If customers document number different from 11 caracters, 
     the fuction will return False.
-
     Args:
         customer_document(str): That information will be provide by API database 
     """
@@ -33,12 +30,11 @@ def check_cpf_isvalid(customer_document):
     5 * 3  = 15           #    5 *  4 = 20
     0 * 2  = 0            #    0 *  3 = 0
                           # -> 0 *  2 = 0
-            297           #             343
+            297           #            343
     11 - (297 % 11) = 11  #     11 - (343 % 11) = 9
     11 > 9 = 0            #
-    Digit 1 = 0          #   Digit 2 = 9 
+    Digit 1 = 0           #   Digit 2 = 9 
     ------------------------------------------------
-
     Args:
         customer_document(str): That information will be provide by API database 
     """
@@ -66,3 +62,6 @@ def check_cpf_isvalid(customer_document):
         return True
     else:
         return False
+
+
+# The function below has the main purpose check if date is valid

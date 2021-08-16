@@ -12,6 +12,9 @@ class PurchaseDetail(models.Model):
     customer_name = models.CharField(max_length=50)
     total = models.FloatField()
 
+    def __str__(self):
+        return self.customer_name
+
 
 class Products(models.Model):
     """
