@@ -19,4 +19,5 @@ class ProductsAdmin(admin.ModelAdmin):
     That class provide for admin interface a good reference 
     from database Products 
     """
-    list_display = ('product_quantity', 'product_value', 'discount')
+    list_display = ('product_description', 'product_quantity',
+                    'product_value', 'discount')

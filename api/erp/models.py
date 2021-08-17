@@ -31,5 +31,6 @@ class Products(models.Model):
                                         on_delete=models.PROTECT)
     discount = models.CharField(choices=DISCOUNT_CHOICES,
                                 max_length=255)
+    product_description = models.CharField(max_length=100, default='product')
     product_value = models.FloatField()
     product_quantity = models.PositiveIntegerField()
