@@ -3,6 +3,7 @@ from django.urls import path, include
 from rest_framework import routers
 from erp import viewsets
 from erp import serializers
+from erp import views
 
 
 # to define routes for ERP API
@@ -17,6 +18,7 @@ route.register(r'purchase', viewsets.PurchaseDetailViewSet,
 # Products
 route.register(r'products', viewsets.ProductsViewSet,
                basename="Products")
+
 
 # The urlpatterns list show the all possibilities to access the API url
 urlpatterns = [
