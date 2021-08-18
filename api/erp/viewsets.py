@@ -37,3 +37,20 @@ class ProductsViewSet(viewsets.ModelViewSet):
     serializer_class = ProductsSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Products.objects.all()
+
+    def post(self, request, format=None):
+        """
+        This function will check products and cashback value.
+        """
+        api_data = request.data
+        product_value = api_data['results']['product_value']
+        quantity = api_data['results']['product_quantity']
+        cashback = api_data['results']['discount']
+        try:
+            cashback_amount = cachback_calculate(cashback,
+                                                 product_value,
+                                                 quantity)
+            return cashback_amount
+        except ValueError:
+            message = 'Did not possible to calculate cashback amount'
+            return message
