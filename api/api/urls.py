@@ -30,6 +30,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # url standard from Django Rest Framework
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    # url from ERP API
+    # url from ERP | Cashback API
     path('', include(route.urls)),
 ]

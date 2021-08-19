@@ -8,6 +8,7 @@ from .functions import (check_cpf_digits,
                         cachback_calculate,
                         calculate_check
                         )
+from cashback.models import Cashback_API
 
 
 # define viewsets for classes created on serializers.py
@@ -47,10 +48,17 @@ class ProductsViewSet(viewsets.ModelViewSet):
         quantity = api_data['results']['product_quantity']
         cashback = api_data['results']['discount']
         try:
+            # Variables regarding a Cashback_API
             cashback_amount = cachback_calculate(cashback,
                                                  product_value,
                                                  quantity)
-            return cashback_amount
+            message = 'The cashback was created'
+            database_updated = Cashback_API(message=message,
+                                            cashback_amount=cashback_amount)
+            database_updated.save()
         except ValueError:
             message = 'Did not possible to calculate cashback amount'
-            return message
+            cashback_amount = 0.0
+            database_updated = Cashback_API(message=message,
+                                            cashback_amount=cashback_amount)
+            database_updated.save()
