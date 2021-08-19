@@ -1,9 +1,10 @@
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from erp import viewsets
-from erp import serializers
-from erp import views
+from erp import (viewsets, serializers, views)
+from cashback import (viewsets,
+                      serializers,
+                      views)
 
 
 # to define routes for ERP API
@@ -15,9 +16,15 @@ route = routers.DefaultRouter()
 route.register(r'purchase', viewsets.PurchaseDetailViewSet,
                basename="PurchaseDetail")
 
+
 # Products
 route.register(r'products', viewsets.ProductsViewSet,
                basename="Products")
+
+
+# Customers
+route.register(r'customers', viewsets.CustomersViewSet,
+               basename="Customers")
 
 
 # The urlpatterns list show the all possibilities to access the API url
