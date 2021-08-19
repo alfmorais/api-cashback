@@ -7,6 +7,7 @@
 ## Stacks Utilizadas:
 
 <p>Frameworks utilizado no desenvolvimento do projeto:</p>
+
 1. Django
 2. Django Rest Framework
 3. SQLite3
@@ -17,7 +18,7 @@
 
 ### Criar um Ambiente Virtual
 
-<p>Os seguintes passos descreve como criar um ambiente virtual no sistema operacional Windowns. Para informações de MacOS e Unix, porfavor consulte a [Documentação](https://docs.python.org/pt-br/3/library/venv.html).</p>
+Os seguintes passos descreve como criar um ambiente virtual no sistema operacional Windowns. Para informações de MacOS e Unix, porfavor consulte a documentação para [Criação de Ambientes Virtuais](https://docs.python.org/pt-br/3/library/venv.html).
 
 ~~~cmd
 mkdir API-CASHBACK
@@ -33,11 +34,35 @@ python -m venv api-cashback
 api-cashback/Scripts/Activate
 ~~~
 
-<p>Deve aparecer a palavra (api-cashback) nas cor verde, indicando que o ambiente virtual está ativado.</p>
+<p>Deve aparecer a palavra (api-cashback) na cor verde, indicando que o ambiente virtual está ativado.</p>
 
 ![Text Alt](files/venv.png)
 
-### Instalação dos Pacotes e Bibliotecas:
+## Instalação dos Pacotes e Bibliotecas:
+
+## Iniciando o projeto:
+
+## Configurando o projeto:
+
+## Definindo o banco de dados no models.py
+
+## Definindo o serialiazers.py
+
+## Definindo o viewsets.py
+
+## Trabalhando com Routers na urls.py
+
+## Lógica da API
+
+## Cálculo de Cashback
+
+## Verificando o CPF do Cliente
+
+## Como usar a API
+
+## Verificando o banco de dados
+
+## Agradecimentos
 
 ## Referências Bibliográficas
 
