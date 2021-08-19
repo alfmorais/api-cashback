@@ -3,6 +3,7 @@ from .models import Customers, Cashback_API
 
 
 # Register your models here.
+@admin.register(Cashback_API)
 class Cashback_APIAdmin(admin.ModelAdmin):
     """
     That class provide for admin interface a good reference

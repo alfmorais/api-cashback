@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from rest_framework import viewsets
 from .serializers import PurchaseDetailSerializer
 from .serializers import ProductsSerializer
@@ -17,11 +18,12 @@ class PurchaseDetailViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = PurchaseDetail.objects.all()
 
-    def post(self, request, format=None):
+    def post(self, request):
         """
         This function will provide double check for customers documents
         and return true in case of sucessuful validated. 
         """
+        user = User.objects.get(username='morais')
         api_data = request.data
         customer_name = api_data["results"]["customer_name"]
         customer_document = api_data["results"]["customer_document"]
@@ -29,16 +31,18 @@ class PurchaseDetailViewSet(viewsets.ModelViewSet):
         second_validate = check_cpf_isvalid(customer_document)
         if (first_validate and second_validate) == True:
             message = "Customers Document was sucessuful validated"
-            database_updated = Cashback_API(customer_document_validated=message,
-                                            customer_name=customer_name,
-                                            customer_document=customer_document)
+            database_updated = Cashback_API.objects.get(customer_document_validated=message,
+                                                        customer_name=customer_name,
+                                                        customer_document=customer_document)
             database_updated.save()
+            return database_updated
         else:
             message = "Customers Document error validated"
-            database_updated = Cashback_API(customer_document_validated=message,
-                                            customer_name=customer_name,
-                                            customer_document=customer_document)
+            database_updated = Cashback_API.objects.get(customer_document_validated=message,
+                                                        customer_name=customer_name,
+                                                        customer_document=customer_document)
             database_updated.save()
+            return database_updated
 
 
 class ProductsViewSet(viewsets.ModelViewSet):
@@ -46,10 +50,11 @@ class ProductsViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Products.objects.all()
 
-    def post(self, request, format=None):
+    def post(self, request):
         """
         This function will check products and cashback value.
         """
+        user = User.objects.get(username='morais')
         api_data = request.data
         product_value = api_data['results']['product_value']
         quantity = api_data['results']['product_quantity']
@@ -60,12 +65,14 @@ class ProductsViewSet(viewsets.ModelViewSet):
                                                  product_value,
                                                  quantity)
             message = 'The cashback was created'
-            database_updated = Cashback_API(message=message,
-                                            cashback_amount=cashback_amount)
+            database_updated = Cashback_API.objects.get(message=message,
+                                                        cashback_amount=cashback_amount)
             database_updated.save()
+            return database_updated
         except ValueError:
             message = 'Did not possible to calculate cashback amount'
             cashback_amount = 0.0
-            database_updated = Cashback_API(message=message,
-                                            cashback_amount=cashback_amount)
+            database_updated = Cashback_API.objects.get(message=message,
+                                                        cashback_amount=cashback_amount)
             database_updated.save()
+            return database_updated
