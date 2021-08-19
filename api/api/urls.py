@@ -2,9 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 from erp import (viewsets, serializers, views)
-from cashback import (viewsets,
-                      serializers,
-                      views)
+from cashback.viewsets import CustomersViewSet
 
 
 # to define routes for ERP API
@@ -23,7 +21,7 @@ route.register(r'products', viewsets.ProductsViewSet,
 
 
 # Customers
-route.register(r'customers', viewsets.CustomersViewSet,
+route.register(r'customers', CustomersViewSet,
                basename="Customers")
 
 
