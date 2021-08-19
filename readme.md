@@ -42,6 +42,19 @@ api-cashback/Scripts/Activate
 
 ## Iniciando o projeto:
 
+1. Iniciando o projeto Django. 
+
+~~~cmd
+django-admin startproject api
+~~~
+
+2. Iniciando as aplicações.
+
+~~~cmd
+django-admin startapp cashback
+django-admin startapp erp
+~~~
+
 ## Configurando o projeto:
 
 ## Definindo o banco de dados no models.py
