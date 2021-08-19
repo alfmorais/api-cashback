@@ -23,15 +23,22 @@ class PurchaseDetailViewSet(viewsets.ModelViewSet):
         and return true in case of sucessuful validated. 
         """
         api_data = request.data
-        customers_document = api_data["results"]["customer_document"]
-        first_validate = check_cpf_digits(customers_document)
-        second_validate = check_cpf_isvalid(customers_document)
+        customer_name = api_data["results"]["customer_name"]
+        customer_document = api_data["results"]["customer_document"]
+        first_validate = check_cpf_digits(customer_document)
+        second_validate = check_cpf_isvalid(customer_document)
         if (first_validate and second_validate) == True:
             message = "Customers Document was sucessuful validated"
-            return message
+            database_updated = Cashback_API(customer_document_validated=message,
+                                            customer_name=customer_name,
+                                            customer_document=customer_document)
+            database_updated.save()
         else:
             message = "Customers Document error validated"
-            return message
+            database_updated = Cashback_API(customer_document_validated=message,
+                                            customer_name=customer_name,
+                                            customer_document=customer_document)
+            database_updated.save()
 
 
 class ProductsViewSet(viewsets.ModelViewSet):

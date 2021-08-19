@@ -8,7 +8,8 @@ class Cashback_API(models.Model):
     """
     customer_name = models.CharField(max_length=50)
     customer_document = models.CharField(max_length=11)
-    customer_document_validade = models.CharField(max_length=255)
+    customer_document_validated = models.CharField(
+        max_length=255, default=None)
     message = models.CharField(max_length=255)
     cashback_amount = models.FloatField(default=0)
 
