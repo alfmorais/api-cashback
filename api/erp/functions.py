@@ -65,7 +65,7 @@ def check_cpf_isvalid(customer_document):
 
 
 # The function below has the main purpose calculate cashback
-def cachback_calculate(discount, product_value, product_quantity):
+def cashback_calculate(discount, product_value, product_quantity):
     """
     This function will calculate cashback amount to return to customers.
     Args:
