@@ -76,7 +76,7 @@ class ProductsViewSet(viewsets.ModelViewSet):
             production_description=data['purchase_description']
         )
 
-        if True:
+        try:
             # Variables regarding a Cashback_API
             cashback_amount = cashback_calculate(cashback,
                                                  product_value,
@@ -86,7 +86,7 @@ class ProductsViewSet(viewsets.ModelViewSet):
                 message=message,
                 cashback_amount=cashback_amount)
             return Response('OK')
-        else:
+        except Exception:
             message = 'Did not possible to calculate cashback amount'
             cashback_amount = 0.0
             Cashback_API.objects.create(

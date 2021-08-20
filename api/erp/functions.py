@@ -79,18 +79,19 @@ def cashback_calculate(discount, product_value, product_quantity):
 
     # will check range of cashback
     if discount.upper() == 'A':
-        cashback_amount = round((total_purchase - (total_purchase * 0.1)), 2)
+        cashback_amount = round(((total_purchase * 0.1)), 2)
         return cashback_amount
     elif discount.upper() == 'B':
-        cashback_amount = round((total_purchase - (total_purchase * 0.3)), 2)
+        cashback_amount = round(((total_purchase * 0.3)), 2)
         return cashback_amount
     elif discount.upper() == 'C':
-        cashback_amount = round((total_purchase - (total_purchase * 0.5)), 2)
+        cashback_amount = round(((total_purchase * 0.5)), 2)
         return cashback_amount
-
 
 # The function below has the main purpose calculate and check,
 # correct values receveid from ERP API -> POST METHOD
+
+
 def calculate_check(product_quantity, product_value, total):
     """
     This function will check value receveid from ERP API - POST METHOD
