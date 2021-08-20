@@ -75,7 +75,7 @@ def cashback_calculate(discount, product_value, product_quantity):
     """
 
     # will calculate a total amount
-    total_purchase = round(product_value * product_quantity)
+    total_purchase = round((float(product_value) * float(product_quantity)), 2)
 
     # will check range of cashback
     if discount.upper() == 'A':
@@ -100,7 +100,7 @@ def calculate_check(product_quantity, product_value, total):
         product_value (float): unit price of product
         total (float): quantity of product
     """
-    total_purchase = round(product_value * product_quantity)
+    total_purchase = round(float(product_value) * float(product_quantity))
     total = round(total, 2)
 
     if total_purchase == total:

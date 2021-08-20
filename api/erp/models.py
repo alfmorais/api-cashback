@@ -26,7 +26,6 @@ class Products(models.Model):
         ('C', 'discount_50%'),
     ]
     purchase_detail = models.ForeignKey(to=PurchaseDetail,
-                                        null=True,
                                         blank=True,
                                         on_delete=models.PROTECT)
     discount = models.CharField(choices=DISCOUNT_CHOICES,

@@ -59,37 +59,27 @@ class ProductsViewSet(viewsets.ModelViewSet):
     # permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Products.objects.all()
 
-    def post(self, request):
+    def create(self, request):
         """
         This function will check products and cashback value.
         """
         data = request.data
+        print(data)
         product_value = data['product_value']
         quantity = data['product_quantity']
         cashback = data['discount']
 
         Products.objects.create(
             product_value=data['product_value'],
-            quantity=data['product_quantity'],
+            product_quantity=data['product_quantity'],
             discount=data['discount'],
-            purchase_detail=data['purchase_detail'],
-            production_description=data['purchase_description']
+            product_description=data['product_description'],
         )
-
-        try:
-            # Variables regarding a Cashback_API
-            cashback_amount = cashback_calculate(cashback,
-                                                 product_value,
-                                                 quantity)
-            message = 'The cashback was created'
-            Cashback_API.objects.create(
-                message=message,
-                cashback_amount=cashback_amount)
-            return Response('OK')
-        except Exception:
-            message = 'Did not possible to calculate cashback amount'
-            cashback_amount = 0.0
-            Cashback_API.objects.create(
-                message=message,
-                cashback_amount=cashback_amount)
-            return Response('OK')
+        cashback_amount = cashback_calculate(cashback,
+                                             product_value,
+                                             quantity)
+        message = 'The cashback was created'
+        Cashback_API.objects.create(
+            message=message,
+            cashback_amount=cashback_amount)
+        return Response('OK')
