@@ -27,6 +27,7 @@ class Products(models.Model):
     ]
     purchase_detail = models.ForeignKey(to=PurchaseDetail,
                                         blank=True,
+                                        null=True,
                                         on_delete=models.PROTECT)
     discount = models.CharField(choices=DISCOUNT_CHOICES,
                                 max_length=255)
