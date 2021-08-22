@@ -79,6 +79,8 @@ class ProductsViewSet(viewsets.ModelViewSet):
                                              product_value,
                                              quantity)
         message = 'The cashback was created'
+        print(cashback_amount)
+        print(message)
         Cashback_API.objects.create(
             message=message,
             cashback_amount=cashback_amount)
