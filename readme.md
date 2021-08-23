@@ -358,11 +358,180 @@ O fluxograma abaixo demonstra o funcionamento da API.
 
 ![Text Alt](files/flowchart.png)
 
-## Cálculo de Cashback
+## Cálculo de Cashback e Validação de Dados
 
-## Verificando o CPF do Cliente
+Dentro da API ERP possui um arquivo com o nome functions.py que estabalece regras para cálculo de Cashback e validação de alguns dados. Segue os tipos de validação:
+
+1) Validação de CPF: 
+
+~~~python
+def check_cpf_digits(customer_document):
+    """
+    This function will check length caracter qty of customer document number.
+    If customers document number different from 11 caracters, 
+    the fuction will return False.
+    Args:
+        customer_document(str): That information will be provide by API database 
+    """
+    if len(customer_document) == 11:
+        return True
+    else:
+        return False
+
+def check_cpf_isvalid(customer_document):
+    """
+    This algorithm provide a smart solution to check the last 2 numbers 
+    of customers document and validate if are correct or not. 
+    customers document_example = 168.995.350-09
+    ------------------------------------------------
+    1 * 10 = 10           #    1 * 11 = 11 <-
+    6 * 9  = 54           #    6 * 10 = 60
+    8 * 8  = 64           #    8 *  9 = 72
+    9 * 7  = 63           #    9 *  8 = 72
+    9 * 6  = 54           #    9 *  7 = 63
+    5 * 5  = 25           #    5 *  6 = 30
+    3 * 4  = 12           #    3 *  5 = 15
+    5 * 3  = 15           #    5 *  4 = 20
+    0 * 2  = 0            #    0 *  3 = 0
+                          # -> 0 *  2 = 0
+            297           #            343
+    11 - (297 % 11) = 11  #     11 - (343 % 11) = 9
+    11 > 9 = 0            #
+    Digit 1 = 0           #   Digit 2 = 9 
+    ------------------------------------------------
+    Args:
+        customer_document(str): That information will be provide by API database 
+    """
+    new_customer_document = customer_document[:-2]
+    reverse = 10
+    sumatory_total = 0
+
+    for index in range(19):
+        if index > 8:
+            index -= 9
+
+        sumatory_total += int(new_customer_document[index])
+
+        reverse -= 1
+        if reverse < 2:
+            reverse = 11
+            digit = 11 - (sumatory_total % 11)
+
+            if digit > 9:
+                digit = 0
+            sumatory_total = 0
+            new_customer_document += str(digit)
+
+    if customer_document == new_customer_document:
+        return True
+    else:
+        return False
+~~~
+
+2) Validação do Total da Compra:
+
+~~~python
+def calculate_check(product_quantity, product_value, total):
+    """
+    This function will check value receveid from ERP API - POST METHOD
+    Args:
+        product_quantity (int): value receveid from ERP API
+        product_value (float): unit price of product
+        total (float): quantity of product
+    """
+    total_purchase = round(float(product_value) * float(product_quantity))
+    total = round(float(total), 2)
+
+    if total_purchase == total:
+        return True
+    else:
+        return False
+~~~
+
+3) Validação do Input do disconto: 
+
+No caso do input do valor de retorno de cashback foi incluido no models.py a opção CHOICES. Conforme abaixo: 
+
+~~~python
+
+    DISCOUNT_CHOICES = [
+        ('A', 'discount_10%'),
+        ('B', 'discount_30%'),
+        ('C', 'discount_50%'),
+    ]
+
+~~~
+
+Dessa maneira, limitamos a possibilidade de erro na informação recebida do ERP. 
+
+4) Cálculo do Cashback:
+
+~~~python
+def cashback_calculate(discount, product_value, product_quantity):
+    """
+    This function will calculate cashback amount to return to customers.
+    Args:
+        discount (str): value of discount cashback
+        product_value (float): unit price of product
+        product_quantity (int): quantity of product
+    """
+
+    # will calculate a total amount
+    total_purchase = round((float(product_value) * float(product_quantity)), 2)
+
+    # will check range of cashback
+    if discount.upper() == 'A':
+        cashback_amount = round(((total_purchase * 0.1)), 2)
+        return cashback_amount
+    elif discount.upper() == 'B':
+        cashback_amount = round(((total_purchase * 0.3)), 2)
+        return cashback_amount
+    elif discount.upper() == 'C':
+        cashback_amount = round(((total_purchase * 0.5)), 2)
+        return cashback_amount
+~~~
+
+5) Autenticação do usuario foi realizada dentro de cada função create no arquivo viewsets.py das API ERP e Cashback: 
+
+~~~python
+# define viewsets for classes created on serializers.py
+class CustomersViewSet(viewsets.ModelViewSet):
+    serializer_class = CustomersSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    queryset = Customers.objects.all()
+~~~
 
 ## Como usar a API
+
+1) Inicia o servido local com o comando python abaixo e clica no link <a>http://127.0.0.1:8000/</a>. 
+
+~~~cmd
+python manage.py runserver
+~~~
+
+![Text Alt](files/runserver.png)
+
+2) Clica no primeiro link sinalizado: 
+
+![Text Alt](files/api.png)
+
+3) Prencha os dados que o sistema ERP enviará e clica em POST:
+
+![Text Alt](files/api_create_purchase_detail.png)
+
+4) A resposta será uma mensagem que os dados foram recebidos e salvo no banco de dados. 
+
+![Text Alt](files/api_results_post.png)
+
+5) Na API Customers digite o CPF do cliente que deseja consultar o saldo de Cashback: 
+
+![Text Alt](files/customers.png)
+
+6) A resposta da consulta será conforme tela abaixo: 
+
+![Text Alt](files/final.png)
+
+onde vai possuir os dados do cliente, tais como: nome, cpf, todos os valores gerado de cashback e somatória dos valores de cashback. 
 
 ## Verificando o banco de dados
 
