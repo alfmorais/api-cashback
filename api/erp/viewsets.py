@@ -16,7 +16,7 @@ from django.utils import timezone
 # define viewsets for classes created on serializers.py
 class PurchaseDetailViewSet(viewsets.ModelViewSet):
     serializer_class = PurchaseDetailSerializer
-    # permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = PurchaseDetail.objects.all()
 
     def create(self, request, *args, **kwargs):
