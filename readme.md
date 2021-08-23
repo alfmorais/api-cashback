@@ -317,7 +317,46 @@ class CustomersViewSet(viewsets.ModelViewSet):
 
 ## Trabalhando com Routers na urls.py
 
+A função Routers do Django Rest Framework facilita a protipagem de URL dinâmica de acordo com as classes configurada no projeto. Essa função é utilizada no arquivo urls.py do diretório principal da aplicação.
+
+~~~python
+from django.contrib import admin
+from django.urls import path, include
+from rest_framework import routers
+from erp import (viewsets, serializers, views)
+from cashback.viewsets import CustomersViewSet
+
+
+# to define routes for ERP API
+route = routers.DefaultRouter()
+
+
+# defined routes to ERP API models Purchase Detail
+# Purchase Detail
+route.register(r'purchase', viewsets.PurchaseDetailViewSet,
+               basename="PurchaseDetail")
+
+
+# Customers
+route.register(r'customers', CustomersViewSet,
+               basename="Customers")
+
+
+# The urlpatterns list show the all possibilities to access the API url
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    # url standard from Django Rest Framework
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    # url from ERP | Cashback API
+    path('', include(route.urls)),
+]
+~~~
+
 ## Lógica da API
+
+O fluxograma abaixo demonstra o funcionamento da API. 
+
+![Text Alt](files/flowchart.png)
 
 ## Cálculo de Cashback
 
@@ -326,6 +365,8 @@ class CustomersViewSet(viewsets.ModelViewSet):
 ## Como usar a API
 
 ## Verificando o banco de dados
+
+## Testes
 
 ## Agradecimentos
 
