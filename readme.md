@@ -14,7 +14,7 @@ O projeto de desenvolvimento da API (Application Programming Interface) tem como
 
 ## Preparação do Ambiente: 
 
-<p>O módulo _venv_ fornece soluções para criar ambientes virtuais isolado do diretória do sistema. A principal vantagem é isolar o _venv_ do Sistema Operacional, para evitar conflitos de pacotes e bibliotecas.</p>
+<p>O módulo <b>venv</b> fornece soluções para criar ambientes virtuais isolado do diretória do sistema. A principal vantagem é isolar o <b>venv</b> do Sistema Operacional, para evitar conflitos de pacotes e bibliotecas.</p>
 
 ### Criar um Ambiente Virtual
 
