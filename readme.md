@@ -57,6 +57,37 @@ django-admin startapp erp
 
 ## Configurando o projeto:
 
+Configurando o arquivo settings.py: 
+
+~~~python
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    # projects define by developer
+    'rest_framework',
+    'api',
+    'erp',
+    'cashback',
+]
+~~~
+
+~~~python
+LANGUAGE_CODE = 'pt-br'
+
+TIME_ZONE = 'America/Sao_Paulo'
+~~~
+
+Fazendo todas as migrações iniciais do banco de dados:
+
+~~~cmd
+python manage.py makemigrations
+python manage.py migrate
+~~~
+
 ## Definindo o banco de dados no models.py
 
 Definindo o banco de dados no arquivo models.py da primeira API ERP.
@@ -295,24 +326,30 @@ class CustomersViewSet(viewsets.ModelViewSet):
         database = Cashback_API.objects.filter(
             customer_document=customer_document
         )
+        try:
+            # getting variables regarding to cashback API response
+            customer_name = database.values("customer_name").latest("id")
+            customer_document = database.values(
+                "customer_document").latest("id")
+            cashback_per_purchase_detail = database.values_list(
+                "cashback_amount").order_by("id")
+            cashback_total = database.aggregate(Sum("cashback_amount"))
 
-        # getting variables regarding to cashback API response
-        customer_name = database.values("customer_name").latest("id")
-        customer_document = database.values("customer_document").latest("id")
-        cashback_per_purchase_detail = database.values_list(
-            "cashback_amount").order_by("id")
-        cashback_total = database.aggregate(Sum("cashback_amount"))
-
-        # that response will be in charge of the reply some consult
-        # for checking how much cashback some customer have in our
-        # database. The answer will provide a full information
-        # to accomplish targets from API 2
-        return Response({
-            "customer_name": customer_name,
-            "customer_document": customer_document,
-            "cashback_per_purchase_detail": cashback_per_purchase_detail,
-            "cashback_total": cashback_total,
-        })
+            # that response will be in charge of the reply some consult
+            # for checking how much cashback some customer have in our
+            # database. The answer will provide a full information
+            # to accomplish targets from API 2
+            return Response({
+                "customer_name": customer_name,
+                "customer_document": customer_document,
+                "cashback_per_purchase_detail": cashback_per_purchase_detail,
+                "cashback_total": cashback_total,
+            })
+        except Cashback_API.DoesNotExist:
+            message = "The current customers document does not register in our database!"
+            return Response({
+                "Message": message
+            })
 ~~~
 
 ## Trabalhando com Routers na urls.py
@@ -537,10 +574,15 @@ onde vai possuir os dados do cliente, tais como: nome, cpf, todos os valores ger
 
 Após o registro com funcionamento da API, os registros serão possivel alterar, excluir, deletar ou criar usando a interface administrativa do Django.
 
+Referências dos registro de Purchase Detail:
+
 ![Text Alt](files/bd_1.png)
+
+Referências dos registro de Cashback:
 
 ![Text Alt](files/bd_2.png)
 
+Referências dos registro de Customers:
 ![Text Alt](files/bd_3.png)
 
 ## Testes
