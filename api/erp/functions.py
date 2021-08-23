@@ -101,11 +101,9 @@ def calculate_check(product_quantity, product_value, total):
         total (float): quantity of product
     """
     total_purchase = round(float(product_value) * float(product_quantity))
-    total = round(total, 2)
+    total = round(float(total), 2)
 
     if total_purchase == total:
-        message = 'The value was validated!'
-        return message
+        return True
     else:
-        message = 'The value is invalid. Different from ERP!'
-        return message
+        return False

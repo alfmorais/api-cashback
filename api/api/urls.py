@@ -15,11 +15,6 @@ route.register(r'purchase', viewsets.PurchaseDetailViewSet,
                basename="PurchaseDetail")
 
 
-# Products
-route.register(r'products', viewsets.ProductsViewSet,
-               basename="Products")
-
-
 # Customers
 route.register(r'customers', CustomersViewSet,
                basename="Customers")

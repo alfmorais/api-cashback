@@ -5,7 +5,6 @@ from .models import Customers, Cashback_API
 
 # Define serializers class from Customers
 class CustomersSerializer(serializers.ModelSerializer):
-    tracks = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
         model = Customers
@@ -13,7 +12,6 @@ class CustomersSerializer(serializers.ModelSerializer):
 
 
 class Cashback_APISerializer(serializers.ModelSerializer):
-    tracks = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
         model = Cashback_API

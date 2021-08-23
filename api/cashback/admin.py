@@ -9,5 +9,9 @@ class Cashback_APIAdmin(admin.ModelAdmin):
     That class provide for admin interface a good reference
     from database Cashback_API.
     """
-    list_display = ('customer_name', 'customer_document',
-                    'message', 'cashback_amount')
+    list_display = ('cashback_date',
+                    'customer_name',
+                    'customer_document',
+                    'customer_document_validated',
+                    'cashback_message',
+                    'cashback_amount')
