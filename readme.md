@@ -697,7 +697,7 @@ class CustomersTestCase(APITestCase):
 
 ## Agradecimentos
 
-Quero agradecer essa oportunidade de participar do processo seletivo da Mais Todos. Indiferente do resultado, considerando tecnicamente o antes e depois, eu aprendi muito com esse desafio. Essa é questão, estudar sem nenhum proposito, é decorar um monte de regras sem saber se um dia vai usar. Estudar com um propósito, isso sim é gratificante. Obrigado a todos.
+Quero agradecer essa oportunidade de participar do processo seletivo da Mais Todos. Indiferente do resultado, considerando tecnicamente o antes e depois, eu aprendi muito com esse desafio. Essa é questão, estudar sem nenhum propósito, é decorar um monte de regras sem saber se um dia vai usar. Estudar com um propósito, isso sim é gratificante. Obrigado a todos.
 
 ## Referências Bibliográficas
 
