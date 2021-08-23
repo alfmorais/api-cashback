@@ -8,9 +8,22 @@ O projeto de desenvolvimento da API (Application Programming Interface) tem como
 
 <p>Frameworks utilizado no desenvolvimento do projeto:</p>
 
-1. Django
-2. Django Rest Framework
-3. SQLite3
+Retirado do arquivo requirements.txt
+
+~~~txt
+asgiref==3.4.1
+certifi==2021.5.30
+charset-normalizer==2.0.4
+Django==3.2.6
+django-filter==2.4.0
+djangorestframework==3.12.4
+idna==3.2
+Markdown==3.3.4
+pytz==2021.1
+requests==2.26.0
+sqlparse==0.4.1
+urllib3==1.26.6
+~~~
 
 ## Preparação do Ambiente: 
 
@@ -587,7 +600,104 @@ Referências dos registro de Customers:
 
 ## Testes
 
+Elaborado testes unitários para verificar o funcionamento CRUD (Create, Read, Updated and Delete) das API.
+
+~~~python
+from json import dumps
+
+from cashback.models import Cashback_API, Customers
+from cashback.serializers import Cashback_APISerializer, CustomersSerializer
+from django.contrib.auth.models import User
+from django.db.models import DateTimeField
+from django.test.client import RequestFactory, encode_multipart
+from django.urls import reverse
+from erp.models import PurchaseDetail
+from erp.serializers import PurchaseDetailSerializer
+from rest_framework import status
+from rest_framework.authtoken.models import Token
+from rest_framework.test import (APIRequestFactory, APITestCase,
+                                 force_authenticate)
+
+
+class PurchaseDetailTestCase(APITestCase):
+    """
+    This class will provide test for Purchase Detail
+    """
+
+    def test_purchase_detail_get(self):
+        url = "http://127.0.0.1:8000/purchase/1/"
+        factory = APIRequestFactory()
+        request = factory.get(url)
+
+    def test_purchase_detail_post(self):
+        data = dumps({
+            "customer_document": "20211020210",
+            "customer_name": "Joaquim Morais Neto",
+            "product_description": "Boneco do Batman",
+            "product_value": 150.0,
+            "product_quantity": 2,
+            "total": 300.0,
+            "discount": "A",
+        })
+        url = "http://127.0.0.1:8000/purchase/"
+        factory = APIRequestFactory()
+        request = factory.post(url, data)
+
+    def test_purchase_detail_put(self):
+        factory = RequestFactory()
+        data = dumps({
+            "customer_document": "20211020210",
+            "customer_name": "Joaquim Morais Neto",
+            "product_description": "Boneco do Batman",
+            "product_value": 150.0,
+            "product_quantity": 2,
+            "total": 300.0,
+            "discount": "A",
+        })
+        url = "http://127.0.0.1:8000/purchase/1/"
+        request = factory.put(url, data)
+
+    def test_purchase_detail_delete(self):
+        url = "http://127.0.0.1:8000/purchase/1/"
+        factory = APIRequestFactory()
+        request = factory.delete(url)
+
+
+class CustomersTestCase(APITestCase):
+    """
+    This classes will provide unit test to customers
+    """
+
+    def test_customers_get(self):
+        url = "http://127.0.0.1:8000/customers/48/"
+        factory = APIRequestFactory()
+        request = factory.get(url)
+
+    def test_customers_detail_post(self):
+        data = dumps({
+            "customer_document": "31748861809",
+        })
+        url = "http://127.0.0.1:8000/customers/"
+        factory = APIRequestFactory()
+        request = factory.post(url, data)
+
+    def test_customers_detail_put(self):
+        factory = RequestFactory()
+        data = dumps({
+            "customer_document": "20211020210",
+        })
+        url = "http://127.0.0.1:8000/customers/48/"
+        request = factory.put(url, data)
+
+    def test_customers_detail_delete(self):
+        url = "http://127.0.0.1:8000/customers/48/"
+        factory = APIRequestFactory()
+        request = factory.delete(url)
+~~~
+
 ## Agradecimentos
+
+Quero agradecer essa oportunidade de participar do processo seletivo da Mais Todos. Indiferente do resultado, considerando tecnicamente o antes e depois, eu aprendi muito com esse desafio. Essa é questão, estudar sem nenhum proposito, é decorar um monte de regras sem saber se um dia vai usar. Estudar com um propósito, isso sim é gratificante. Obrigado a todos.
 
 ## Referências Bibliográficas
 
@@ -596,3 +706,6 @@ Referências dos registro de Customers:
 3. [Crie APIs REST com Python e Django REST Framework: Essencial](https://www.udemy.com/course/criando-apis-rest-com-django-rest-framework-essencial/)
 4. [Guia Básico de Markdown](https://docs.pipz.com/central-de-ajuda/learning-center/guia-basico-de-markdown#open)
 5. [Criação de Ambientes Virtuais](https://docs.python.org/pt-br/3/library/venv.html)
+6. [Labcodes](https://labcodes.com.br/blog/pt-br/development/como-usar-serializers-de-django-rest-framework/)
+7. [Django Rest Framework em 30 minutos](https://www.youtube.com/watch?v=gFsIGJR5R8I)
+8. [Live de Python #108 - Montando APIs em minutos com Django Rest Framework - com Luiz Guilherme](https://www.youtube.com/watch?v=I8IAJ3asw5w&t=4677s)

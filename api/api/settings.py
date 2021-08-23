@@ -126,7 +126,13 @@ REST_FRAMEWORK = {
     'DEFAULT_THROTTLE_RATES': {
         'anon': '5/minute',
         'user': '10/minute',
-    }
+    },
+    'TEST_REQUEST_RENDERER_CLASSES': [
+        'rest_framework.renderers.MultiPartRenderer',
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.TemplateHTMLRenderer'
+    ],
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
 }
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
