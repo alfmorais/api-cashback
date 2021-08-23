@@ -81,6 +81,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # projects define by developer
+    'rest_framework.authtoken',
     'rest_framework',
     'api',
     'erp',
