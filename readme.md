@@ -535,6 +535,14 @@ onde vai possuir os dados do cliente, tais como: nome, cpf, todos os valores ger
 
 ## Verificando o banco de dados
 
+Após o registro com funcionamento da API, os registros serão possivel alterar, excluir, deletar ou criar usando a interface administrativa do Django.
+
+![Text Alt](files/bd_1.png)
+
+![Text Alt](files/bd_2.png)
+
+![Text Alt](files/bd_3.png)
+
 ## Testes
 
 ## Agradecimentos
